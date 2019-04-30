@@ -1,6 +1,4 @@
-let saveFileName = ""
-let saveStart = false
-let startFrame = 0
+
 function preload(){
 }
 
@@ -20,7 +18,11 @@ function draw() {
   saveFrame(10)
 }
 
-// S押して連番書き出し
+
+// S押して連番書き出し =========================================
+let saveFileName = ""
+let saveStart = false
+let startFrame = 0
 function saveSetup(){
   var c = "abcdefghijklmnopqrstuvwxyz"
   var cl = c.length
@@ -32,12 +34,17 @@ function saveFrame(duration){
   if(saveStart == true){
     if(frameCount<= startFrame + duration){
       save(saveFileName + '_' + ( '000' + (frameCount - startFrame) ).slice( -4 ) + '.png')
-    }
+    }else{
+			saveStart = false
+		}
   }
 }
 function keyPressed(){
-  if(key == "S"){
-    console.log(key)
+  if(saveStart == false){
+		saveFileName=""
+		saveSetup()
+	}
+  if(key == "s" || key == "S"){
     saveStart = true
     startFrame = frameCount
   }
